@@ -28,9 +28,9 @@ export default function Search() {
           </div>
         </div>
         <div className='w-full pt-12 px-4'>
-          <div class="lg:flex text-gray-600 lg:bg-white  w-full lg:w-8/12 rounded-full items-center lg:pl-[24px] lg:gap-[20px] outline-none border-0 text-center justify-center">
+          <div class="lg:flex text-gray-600 lg:bg-white  w-full lg:w-8/12 rounded-full items-center lg:pl-[24px] lg:gap-[20px] outline-none border-0 text-center justify-center lg:p-[10px]">
             <input class="border-gray-300 bg-white h-10 rounded-full lg:rounded-lg focus:outline-none border-0 flex-grow text-[20px] mb-5 lg:mb-0 mx-auto w-full px-5 py-8 lg:py-0"
-              type="search" name="search" placeholder="Masukan Nomor Whatsapp Disini..."/>
+              type="phone" name="search" placeholder="Masukan nomor whatsapp ex: +6285712XXXX"/>
             <button type="submit" class="right-0 top-0 bg-blue-800 text-white lg:py-4 py-4 px-[20px] w-full lg:w-auto lg:px-[20px] rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 lg:min-w-[200px]">
               Cari Rumah
             </button>
