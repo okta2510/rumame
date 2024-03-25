@@ -1,0 +1,43 @@
+// import Image from "next/image";
+import styles from './search.module.scss';
+import Image from 'next/image'
+
+export default function Search() {
+  return (
+    <main className={`relative items-center flex min-h-screen ${styles.searchComponent} w-full pb-10`}>
+      <div className='container mx-auto items-center flex flex-wrap w-full pt-10'>
+        <div className='w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4'>
+          <Image
+            src="/logo-h-white.svg"
+            width={300}
+            height={300}
+            alt="Picture of the author"
+          />
+          <p className='text-white text-[30px] mb-[30px]'> Wujudkan Rumah Impian mu<br/>Dengan berbagai pilihan Terlengkap !</p>
+          <div className='md:flex items-center justify-start gap-[15px]'>
+          {[1,2,3].map((item, index) => (
+                <Image
+                  key={index}
+                  src={`/comingsoon/icon-${item}.svg`}
+                  width={46}
+                  height={46}
+                  className='w-[auto] h-[34px] md:h-[46px] mb-5 md:mb-0'
+                  alt="Picture of the author"
+                />
+              ))}
+          </div>
+        </div>
+        <div className='w-full pt-12 px-4'>
+          <div class="lg:flex text-gray-600 lg:bg-white  w-full lg:w-8/12 rounded-full items-center lg:pl-[24px] lg:gap-[20px] outline-none border-0 text-center">
+            <input class="border-gray-300 bg-white h-10 rounded-full lg:rounded-lg text-sm focus:outline-none border-0 flex-grow text-[20px] mb-5 mx-auto w-full px-5 py-6 lg:py-0"
+              type="search" name="search" placeholder="Search..."/>
+            <button type="submit" class="right-0 top-0 bg-blue-800 text-white lg:py-4 py-2 px-2 lg:px-8 rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 w-full">
+              Bantu Saya Cari Rumah
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* <Image width={100} height={100} className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12" src={"https://www.creative-tim.com/learning-lab/tailwind-starter-kit/Image/ill_header_3.png"} alt="..."/> */}
+    </main>
+  );
+}
