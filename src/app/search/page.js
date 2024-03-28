@@ -1,8 +1,17 @@
 // import Image from "next/image";
+'use client'
 import styles from './search.module.scss';
 import Image from 'next/image'
 
 export default function Search() {
+  const handleClick = () => {
+   // Your WhatsApp phone number
+    const text = encodeURIComponent('Halo, Saya ingin dibantu cari properti. perkenalkan nama saya, ...');
+    const phoneNumber = '+6289687700260';
+    const walink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${text}`
+
+    window.open(walink, '_blank');
+  };
   return (
     <main className={`relative items-center flex min-h-screen ${styles.searchComponent} w-full pb-10`}>
       <div className='container mx-auto items-center flex flex-wrap w-full pt-10'>
@@ -31,7 +40,7 @@ export default function Search() {
           <div class="lg:flex text-gray-600 lg:bg-white  w-full lg:w-8/12 rounded-full items-center lg:pl-[24px] lg:gap-[20px] outline-none border-0 text-center justify-center lg:p-[10px]">
             <input class="border-gray-300 bg-white h-10 rounded-full lg:rounded-lg focus:outline-none border-0 flex-grow text-[20px] mb-5 lg:mb-0 mx-auto w-full px-5 py-8 lg:py-0"
               type="phone" name="search" placeholder="Masukan nomor whatsapp ex: +6285712XXXX"/>
-            <button type="submit" class="right-0 top-0 bg-blue-800 text-white lg:py-4 py-4 px-[20px] w-full lg:w-auto lg:px-[20px] rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 lg:min-w-[200px]">
+            <button type="submit" class="right-0 top-0 bg-blue-800 text-white lg:py-4 py-4 px-[20px] w-full lg:w-auto lg:px-[20px] rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 lg:min-w-[200px]" onClick={handleClick}>
               Cari Rumah
             </button>
           </div>
