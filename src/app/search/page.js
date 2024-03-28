@@ -52,7 +52,7 @@ export default function Search() {
             <input className="border-gray-300 bg-white h-10 rounded-full lg:rounded-lg focus:outline-none border-0 flex-grow text-[20px] mb-5 lg:mb-0 mx-auto w-full px-5 py-8 lg:py-0"
               type="phone" name="search" placeholder="Masukan nomor whatsapp ex: 085712XXXX" id="phoneNumber" value={phoneNumber} onChange={handlePhoneNumberChange}/>
             <button type="submit" className={"right-0 top-0 bg-blue-800 text-white lg:py-4 py-4 px-[20px] w-full lg:w-auto lg:px-[20px] rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 lg:min-w-[200px] "+ (!phoneNumber ? 'disabled text-slate-400' : '')} onClick={handleClick} disabled={!phoneNumber}>
-              Cari Ruma h
+              Cari Rumah
             </button>
           </div>
         </div>
