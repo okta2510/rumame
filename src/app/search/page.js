@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function Search() {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePhoneNumberChange = (e) => {
     let formattedPhoneNumber = e.target.value.trim();
@@ -16,12 +17,43 @@ export default function Search() {
     setPhoneNumber(formattedPhoneNumber);
   };
   const handleClick = () => {
+    setIsLoading(true)
    // Your WhatsApp phone number
     const text = encodeURIComponent(`from: ${phoneNumber} : Halo, Saya ingin dibantu cari properti. perkenalkan nama saya, ...`);
     const adminPhone = '+6289687700260';
     const walink = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`
+    const currentTime = new Date().toISOString();
+    const postData = {
+      "email": "noemail@now.com",
+      "logged_at": currentTime,
+      "name": "no name",
+      "phone": phoneNumber
+    }
 
-    window.open(walink, '_blank');
+    fetch('https://rumame.adiyatmubarak.web.id/v1/contents/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setPhoneNumber('');
+      window.open(walink, '_blank');
+      return response;
+    })
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    }).finally(()=>{
+      
+      setIsLoading(false)
+    });
   };
   return (
     <main className={`relative items-center flex min-h-screen ${styles.searchComponent} w-full pb-10`}>
@@ -50,9 +82,9 @@ export default function Search() {
         <div className='w-full pt-12 px-4'>
           <div className="lg:flex text-gray-600 lg:bg-white  w-full lg:w-8/12 rounded-full items-center lg:pl-[24px] lg:gap-[20px] outline-none border-0 text-center justify-center lg:p-[10px]">
             <input className="border-gray-300 bg-white h-10 rounded-full lg:rounded-lg focus:outline-none border-0 flex-grow text-[20px] mb-5 lg:mb-0 mx-auto w-full px-5 py-8 lg:py-0"
-              type="phone" name="search" placeholder="Masukan nomor whatsapp ex: 085712XXXX" id="phoneNumber" value={phoneNumber} onChange={handlePhoneNumberChange}/>
+              type="phone" name="search" placeholder="Masukan nomor whatsapp (ex: 085712XXX / 6285712XXX)" id="phoneNumber" value={phoneNumber} onChange={handlePhoneNumberChange} disabled={isLoading}  pattern="[0-9]{10,16}"/>
             <button type="submit" className={"right-0 top-0 bg-blue-800 text-white lg:py-4 py-4 px-[20px] w-full lg:w-auto lg:px-[20px] rounded-full text-[20px] hover:cursor-pointer hover:bg-blue-900 lg:min-w-[200px] "+ (!phoneNumber ? 'disabled text-slate-400' : '')} onClick={handleClick} disabled={!phoneNumber}>
-              Cari Rumah
+              {isLoading ? 'Mohon Tunggu...' : 'Cari Rumah'}
             </button>
           </div>
         </div>
