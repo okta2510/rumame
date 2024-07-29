@@ -5,9 +5,9 @@ import { redirect } from 'next/navigation'
 export default function Home() {
   return (
     <Layout>
-      <main className="container mx-auto">
+      <div className="container mx-auto">
         <img src="/coming-soon.jpg" alt="My Image" width={500} />
-      </main>
+      </div>
     </Layout>
   );
 }
