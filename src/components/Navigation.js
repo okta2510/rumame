@@ -13,7 +13,11 @@ const Nav = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [dropdowns, setDropdowns] = useState({
-    services: false,
+    kpr: false,
+    products: false,
+  });
+  const [collapse, setCollapse] = useState({
+    kpr: false,
     products: false,
   });
   
@@ -21,6 +25,13 @@ const Nav = () => {
     setIsOpen(!isOpen);
   };
 
+
+  const ToggleCollapse = (dropdown) => {
+    setCollapse((prevState) => ({
+      ...prevState,
+      [dropdown]: !collapse[dropdown],
+    }));
+  };
 
   const handleMouseEnter = (dropdown) => {
     setDropdowns((prevState) => ({
@@ -47,7 +58,7 @@ const Nav = () => {
               </span>
             </Link>
             <div className='hidden md:flex md:space-x-4 nav-link mt-[10px]'>
-              <div className="relative w-100" onMouseEnter={() => handleMouseEnter('products')}
+              <div className="relative w-100 py-2" onMouseEnter={() => handleMouseEnter('products')}
               onMouseLeave={() => handleMouseLeave('products')}>
                 <button className="text-gray-800 hover:text-gray-900 focus:outline-none w-100">
                     Cari Properti <FontAwesomeIcon
@@ -55,7 +66,7 @@ const Nav = () => {
                     className="ml-2 h-[20px]"/>
                   </button>
                   {dropdowns.products && (
-                    <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-10">
+                    <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-10 rounded-b-md">
                       <Link href="/services/service1">
                         <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 1</span>
                       </Link>
@@ -68,15 +79,15 @@ const Nav = () => {
                     </div>
                   )}
               </div>
-              <div className="relative w-100" onMouseEnter={() => handleMouseEnter('services')}
-              onMouseLeave={() => handleMouseLeave('services')}>
+              <div className="relative w-100 py-2" onMouseEnter={() => handleMouseEnter('kpr')}
+              onMouseLeave={() => handleMouseLeave('kpr')}>
                 <button className="text-gray-800 hover:text-gray-900 focus:outline-none w-100">
-                  Services <FontAwesomeIcon
-                    icon={dropdowns.services ? faAngleUp : faAngleDown}
+                Kpr & Take Over <FontAwesomeIcon
+                    icon={dropdowns.kpr ? faAngleUp : faAngleDown}
                     className="ml-2 h-[20px]"/>
                 </button>
-                {dropdowns.services && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-10">
+                {dropdowns.kpr && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-10 rounded-b-md">
                     <Link href="/services/service1">
                       <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Service 1</span>
                     </Link>
@@ -90,14 +101,14 @@ const Nav = () => {
                 )}
               </div>
               <Link href="/inquiry">
-                <span className="text-gray-800 hover:text-gray-900">Rumame For Business</span>
+                <span className="text-gray-800 hover:text-gray-900 inline-block py-2">Rumame For Business</span>
               </Link>
               <Link href="/refferal">
-                <span className="text-gray-800 hover:text-gray-900">Refferal</span>
+                <span className="text-gray-800 hover:text-gray-900 inline-block py-2">Refferal</span>
               </Link>
             </div>
           </div>
-          <div className="hidden md:flex md:space-x-4">
+          <div className="hidden lg:flex md:space-x-4">
             <Link href="/">
               <Image src='/button-cta-nav.png' width={145} height={49} alt="btn-cta" className='w-auto h-[49px]'></Image>
             </Link>
@@ -114,12 +125,42 @@ const Nav = () => {
 
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
         <div className="px-6 pt-2 space-y-1">
-          <Link className="!mb-3 block" href="/">
-            <span className="block text-gray-800 hover:text-gray-900">Home <FontAwesomeIcon icon="coffee" /></span>
+          <Link className="!mb-3 block" href="#" onClick={() => ToggleCollapse('products')}>
+            <span className="block text-gray-800 hover:text-gray-900">Cari Properti <FontAwesomeIcon
+                    icon={collapse.products ? faAngleUp : faAngleDown}
+                    className="ml-2 h-[20px]"/></span>
           </Link>
-          <Link className="!mb-3 block" href="/about">
-            <span className="block text-gray-800 hover:text-gray-900">About</span>
+          {collapse.products && (
+            <div className="!mb-3 left-0 mt-2 w-full">
+              <Link href="/services/service1">
+                <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 1</span>
+              </Link>
+              <Link href="/services/service2">
+                <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 2</span>
+              </Link>
+              <Link href="/services/service3">
+                <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 3</span>
+              </Link>
+            </div>
+          )}
+          <Link className="!mb-3 block" href="#" onClick={() => ToggleCollapse('kpr')}>
+          <span className="block text-gray-800 hover:text-gray-900"> Kpr & Take Over <FontAwesomeIcon
+                    icon={collapse.kpr ? faAngleUp : faAngleDown}
+                    className="ml-2 h-[20px]"/></span>
           </Link>
+            {collapse.kpr && (
+            <div className="!mb-3 left-0 mt-2 w-full">
+            <Link href="/services/service1">
+              <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 1</span>
+            </Link>
+            <Link href="/services/service2">
+              <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 2</span>
+            </Link>
+            <Link href="/services/service3">
+              <span className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Products 3</span>
+            </Link>
+          </div>
+        )}
           <Link className="!mb-3 block" href="/services">
             <span className="block text-gray-800 hover:text-gray-900">Services</span>
           </Link>
