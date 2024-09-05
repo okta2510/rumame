@@ -49,7 +49,7 @@ const Nav = () => {
 
   return (
     <nav className="block">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container px-[15px] mx-auto">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 md:flex align-middle items-center">
             <Link className='md:mr-[30px]' href="/">

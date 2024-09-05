@@ -1,6 +1,6 @@
 // pages/index.js
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { library} from '@fortawesome/fontawesome-svg-core'
 import { faPlayCircle  } from '@fortawesome/free-solid-svg-icons'
@@ -9,11 +9,53 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faInstagram, faPlayCircle)
 
 
-export default function Home() {
-  const [cards, setCards] = useState([1,2,3,4,5]);
-  
+export default function Reels() {
+  const [cards, setCards] = useState([1,2,3,4,5,6,7,8,9,10]);
+  const scrollContainerRef = useRef(null);
+  const scrollSpeed = 2; // Adjust the scroll speed as needed
+
   useEffect(() => {
-  }, []);
+    const scrollContainer = scrollContainerRef.current;
+    let scrollInterval = -1;
+
+    const startScrolling = () => {
+      if (!scrollInterval|| scrollInterval === -1) {
+        stopScrolling()
+        scrollInterval = -1
+        scrollInterval = setInterval(() => {
+          const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+          console.log('###',scrollContainer.scrollLeft, maxScrollLeft)
+          if ((scrollContainer.scrollLeft + 10) >= maxScrollLeft) {
+            scrollContainer.scrollLeft = 0;
+          } else {
+            scrollContainer.scrollLeft += scrollSpeed;
+          }
+        }, 50); // Adjusted for smoother performance
+      }
+    };
+
+    const stopScrolling = () => {
+      clearInterval(scrollInterval);
+      scrollInterval = -1
+    };
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener('mouseenter', stopScrolling);
+      scrollContainer.addEventListener('mouseleave', startScrolling);
+      startScrolling();
+    }
+
+    return () => {
+      clearInterval(scrollInterval);
+      scrollInterval = -1
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('mouseenter', stopScrolling);
+        scrollContainer.removeEventListener('mouseleave', startScrolling);
+      }
+    };
+  }, [scrollContainerRef]);
+
+  
 
   return (
     <div className="wrapper py-[30px]">
@@ -28,22 +70,35 @@ export default function Home() {
         <span className='inline-block'>right action</span>
       </div>
     </div>
-    <div className='section-content flex gap-2 max-w-[100%] overflow-x-auto pb-[20px]'>
+    <div
+      className='section-content flex gap-3 max-w-[100%] overflow-x-scroll pb-[20px]'
+      ref={scrollContainerRef}
+    >
       {cards.map((item, index) => (
-        <div key={'card-reels-'+index} className='card'>
-            <div className='box relative flex flex-col w-[370px] h-[475px] bg-[#ccc] rounded-md text-center'>
-              <div className='w-full grow flex items-center justify-center'>
+        <div key={'card-reels-' + index} className='card'>
+          <style jsx>{`
+            .box-reels {
+              background: url('/reels.png');
+              background-size: cover;
+              background-position: center;
+            }
+          `}</style>
+          <div className='box box-reels relative flex flex-col w-[370px] h-[475px] bg-[#ccc] rounded-md text-center'>
+            <div className='flex items-center justify-center w-full grow'>
+              <Link href={'#'}>
                 <FontAwesomeIcon
                   icon={faPlayCircle}
-                  className="ml-2 h-[60px] text-[#fff] opacity-55"/>
-              </div>
-              <span name="title" className='reels-title block text-[#4C3494] text-left  w-full p-[30px] text-[28px] font-bold'>
-              Rumah 5 Menit dari MRT  Tanpa Dp - {item} juta
-              </span>
+                  className="h-[60px] text-[#fff] opacity-55 p-10 hover:cursor-pointer"
+                />
+              </Link>
             </div>
+            {/* <Link href={'#'} name="title" className='reels-title block text-[#4C3494] text-left w-full p-[30px] text-[28px] font-bold'>
+              Rumah 5 Menit dari MRT Tanpa Dp - {item} juta
+            </Link> */}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
     </div>
   );
 }
