@@ -24,7 +24,6 @@ export default function Reels() {
         scrollInterval = -1
         scrollInterval = setInterval(() => {
           const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-          console.log('###',scrollContainer.scrollLeft, maxScrollLeft)
           if ((scrollContainer.scrollLeft + 10) >= maxScrollLeft) {
             scrollContainer.scrollLeft = 0;
           } else {
